@@ -6,8 +6,8 @@ metadata:
     - 安全
     - WAF
     - Web
-  version: 5.3.3
-  display_version: 5.3.3
+  version: 5.4.0
+  display_version: 5.4.0
   homepage: https://github.com/chaitin/safeline
   author:
     name: chaitin
