@@ -142,7 +142,7 @@ services:
   chaos:
     container_name: safeline-chaos
     restart: always
-    image: ${IMAGE_PREFIX}/safeline-chaos:${IMAGE_TAG}
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-chaos:6.0.1
     logging:
       options:
         max-size: "100m"
