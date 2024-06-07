@@ -28,7 +28,7 @@ services:
   mgt:
     container_name: safeline-mgt
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-mgt:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-mgt:6.0.3
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${SAFELINE_DIR}/resources/mgt:/app/data
@@ -48,7 +48,7 @@ services:
   detect:
     container_name: safeline-detector
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-detector:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-detector:6.0.3
     volumes:
       - ${SAFELINE_DIR}/resources/detector:/resources/detector
       - ${SAFELINE_DIR}/logs/detector:/logs/detector
@@ -61,7 +61,7 @@ services:
   mario:
     container_name: safeline-mario
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-mario:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-mario:6.0.3
     volumes:
       - ${SAFELINE_DIR}/resources/mario:/resources/mario
       - ${SAFELINE_DIR}/logs/mario:/logs/mario
@@ -76,12 +76,13 @@ services:
   tengine:
     container_name: safeline-tengine
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-tengine:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-tengine:6.0.3
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/resolv.conf:/etc/resolv.conf:ro
       - ${SAFELINE_DIR}/resources/nginx:/etc/nginx
       - ${SAFELINE_DIR}/resources/detector:/resources/detector
+      - ${SAFELINE_DIR}/resources/chaos:/resources/chaos
       - ${SAFELINE_DIR}/logs/nginx:/var/log/nginx
       - ${SAFELINE_DIR}/resources/cache:/usr/local/nginx/cache
     environment:
@@ -95,7 +96,7 @@ services:
   luigi:
     container_name: safeline-luigi
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-luigi:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-luigi:6.0.3
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${SAFELINE_DIR}/resources/luigi:/app/data
@@ -110,7 +111,7 @@ services:
   fvm:
     container_name: safeline-fvm
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-fvm:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-fvm:6.0.3
     volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
@@ -119,7 +120,7 @@ services:
   bridge:
     container_name: safeline-bridge
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-bridge:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-bridge:6.0.3
     command:
       - /app/bridge
       - serve
@@ -142,13 +143,13 @@ services:
   chaos:
     container_name: safeline-chaos
     restart: always
-    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-chaos:6.0.1
+    image: swr.cn-east-3.myhuaweicloud.com/chaitin-safeline/safeline-chaos:6.0.3
     logging:
       options:
         max-size: "100m"
         max-file: "10"
-    ports:
-      - 23333:23333
+    volumes:
+      - ${SAFELINE_DIR}/resources/chaos:/app/chaos
     networks:
       safeline-ce:
         ipv4_address: ${SUBNET_PREFIX}.10
